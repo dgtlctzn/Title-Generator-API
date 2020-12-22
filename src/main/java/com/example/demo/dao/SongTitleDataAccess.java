@@ -18,4 +18,9 @@ public class SongTitleDataAccess implements SongTitleDao {
         DB.add(new SongTitle(id, songTitle.getFirst_half(), songTitle.getSecond_half()));
         return 0;
     }
+
+    @Override
+    public List<SongTitle> selectAllSongTitles() {
+        return DB;
+    }
 }
