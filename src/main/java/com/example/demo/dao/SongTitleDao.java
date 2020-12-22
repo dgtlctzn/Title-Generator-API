@@ -1,6 +1,8 @@
 package com.example.demo.dao;
 
 import com.example.demo.model.SongTitle;
+
+import java.util.Optional;
 import java.util.UUID;
 import java.util.List;
 
@@ -14,4 +16,10 @@ public interface SongTitleDao {
     }
 
     List<SongTitle> selectAllSongTitles();
+
+    Optional<SongTitle> selectSongTitleById(UUID id);
+
+    int deleteSongTitleById(UUID id);
+
+    int updateSongTitleById(UUID id, SongTitle songTitle);
 }

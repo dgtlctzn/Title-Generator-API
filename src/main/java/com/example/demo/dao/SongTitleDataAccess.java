@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository("mysql")
@@ -22,5 +23,32 @@ public class SongTitleDataAccess implements SongTitleDao {
     @Override
     public List<SongTitle> selectAllSongTitles() {
         return DB;
+    }
+
+    @Override
+    public Optional<SongTitle> selectSongTitleById(UUID id) {
+        return DB.stream().filter(songTitle -> songTitle.getId().equals(id)).findFirst();
+    }
+
+    @Override
+    public int deleteSongTitleById(UUID id) {
+        Optional<SongTitle> maybeSongTitle = selectSongTitleById(id);
+        if (maybeSongTitle.isPresent()) {
+            return 0;
+        }
+        DB.remove(maybeSongTitle.get());
+        return 1;
+    }
+
+    @Override
+    public int updateSongTitleById(UUID id, SongTitle songTitle) {
+        return selectSongTitleById(id).map(songTitle1 -> {
+            int indexOfSongTitleToDelete = DB.indexOf(songTitle);
+            if (indexOfSongTitleToDelete >= 0) {
+                DB.set(indexOfSongTitleToDelete, songTitle);
+                return 1;
+            }
+            return 0;
+        }).orElse(0);
     }
 }
