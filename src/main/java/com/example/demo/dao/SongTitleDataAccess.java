@@ -43,9 +43,10 @@ public class SongTitleDataAccess implements SongTitleDao {
     @Override
     public int updateSongTitleById(UUID id, SongTitle songTitle) {
         return selectSongTitleById(id).map(songTitle1 -> {
-            int indexOfSongTitleToDelete = DB.indexOf(songTitle);
-            if (indexOfSongTitleToDelete >= 0) {
-                DB.set(indexOfSongTitleToDelete, songTitle);
+            int indexOfSongTitleToUpdate = DB.indexOf(songTitle1);
+            System.out.println(indexOfSongTitleToUpdate);
+            if (indexOfSongTitleToUpdate >= 0) {
+                DB.set(indexOfSongTitleToUpdate, songTitle);
                 return 1;
             }
             return 0;
