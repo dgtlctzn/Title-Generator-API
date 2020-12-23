@@ -46,7 +46,9 @@ public class SongTitleDataAccess implements SongTitleDao {
             int indexOfSongTitleToUpdate = DB.indexOf(songTitle1);
             System.out.println(indexOfSongTitleToUpdate);
             if (indexOfSongTitleToUpdate >= 0) {
-                DB.set(indexOfSongTitleToUpdate, songTitle);
+                DB.set(indexOfSongTitleToUpdate, new SongTitle(id,
+                        songTitle.getFirst_half(),
+                        songTitle.getSecond_half()));
                 return 1;
             }
             return 0;
