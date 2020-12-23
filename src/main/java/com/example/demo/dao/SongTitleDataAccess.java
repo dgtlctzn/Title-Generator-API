@@ -33,7 +33,7 @@ public class SongTitleDataAccess implements SongTitleDao {
     @Override
     public int deleteSongTitleById(UUID id) {
         Optional<SongTitle> maybeSongTitle = selectSongTitleById(id);
-        if (maybeSongTitle.isPresent()) {
+        if (!maybeSongTitle.isPresent()) {
             return 0;
         }
         DB.remove(maybeSongTitle.get());
